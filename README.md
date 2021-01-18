@@ -5,7 +5,11 @@
 <br>
 
 
+نُسَارِعُ لَهُمْ فِي الْخَيْرَاتِ ۚ بَلْ لَا يَشْعُرُونَ
 
+Kami bersegera memberikan kebaikan-kebaikan kepada mereka? Tidak, sebenarnya mereka tidak sadar {1008}.
+
+Q.S Al Mu'minun ayat 56
 
 <p align="center">
 <a href="https://github.com/rizkiramadhan4617"><img title="Author" src="https://img.shields.io/badge/AUTHOR-RIZKI R-orange.svg?style=for-the-badge&logo=github"></a>
@@ -19,6 +23,7 @@
 <a href="https://github.com/rizkiramadhan4617/RR018-BOT/network/members"><img title="Forks" src="https://img.shields.io/github/forks/rizkiramadhan4617/RR018-BOT?color=red&style=flat-square"></a>
 <a href="https://github.com/rizkiramadhan4617/RR018-BOT/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/rizkiramadhan4617/RR018-BOT?label=Watchers&color=blue&style=flat-square"></a>
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Frizkiramadhan4617%2FRR018-OT&count_bg=%2379C83D&title_bg=%23555555&icon=probot.svg&icon_color=%2300FF6D&title=hits&edge_flat=false"/></a>
+
 
 ## Clone this project
 
