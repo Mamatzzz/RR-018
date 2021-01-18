@@ -89,8 +89,6 @@ Change owner
 
 Ket: Aktiv 24 jam
 
-![RR-018 github stats](https://github-readme-stats.vercel.app/api?username=rizkiramadhan4617&show_icons=true&theme=tokyonight&show_owner=true)
-
 
 
 ## JOIN THE GROUP <img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/powerup.gif" width="29px">
