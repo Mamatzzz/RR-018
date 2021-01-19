@@ -194,7 +194,7 @@ client.on('group-participants-update', async (anu) => {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
+			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, productm
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
@@ -211,14 +211,15 @@ client.on('group-participants-update', async (anu) => {
 				levelnol: '*LEVEL LU MASIH* 0 °-°',
 				error: {
 					stick: '*Yah gagal, coba ulangi ^_^*',
-					Iv: '𝗠𝗮𝗮𝗳 𝗹𝗶𝗻𝗸 𝘁𝗶𝗱𝗮𝗸 𝘃𝗮𝗹𝗶𝗱☹️'
+					Iv: 'Link yang ada kirim tidak valid!!🙂'
 				},
 				only: {
-					group: '❬X❭ ',
-					ownerG: '❬X❭ ',
-					ownerB: '❬X❭  ',
-					admin: '❬X❭ ',
-					Badmin: '❬X❭ '
+					group: 'Perintah ini hanya bisa digunakan digrop ',
+					ownerG: 'Perintah ini hanya bisa digunakan oleh owner group ',
+					ownerB: 'Perintah ini hanya bisa digunakan oleh owner/pemilik bot ',
+					userB: `*Upss Kamu Belum Terdaftar Didatabase BOT RIZKY*\n──「 DAFTAR 」──\nHalo kak !\nKamu belum Terdaftar didalam database, \n\nCommand : ${prefix}daftar nama|umur\nContoh : ${prefix}daftar Rizky|17\n\n──「 Rizky BOT 」──`,
+					admin: 'Perintah ini hanya bisa digunakan oleh admin group!! ',
+					Badmin: 'perintah ini hanya bisa digunakan ketika bot menjadi admin!! '
 				}
 			}
 
@@ -552,6 +553,18 @@ client.on('group-participants-update', async (anu) => {
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, audio, {mimetype: 'audio/mp4', filename: `${anu.title}.mp3`, quoted: mek})
 					break
+				case 'play1':   
+	          if (!isUser) return reply(mess.only.userB)
+                reply(mess.wait)
+                play = body.slice(5)
+                anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?q=${play}&apikey=apivinz`)
+               if (anu.error) return reply(anu.error)
+                 infomp3 = `*Lagu Ditemukan!!!*\nJudul : ${anu.result.title}\nSource : ${anu.result.source}\nUkuran : ${anu.result.size}\n\n*TUNGGU SEBENTAR LAGI DIKIRIM MOHON JANGAN SPAM YA SAYANG*`
+                buffer = await getBuffer(anu.result.thumbnail)
+                lagu = await getBuffer(anu.result.url_audio)
+                client.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
+                client.sendMessage(from, lagu, audio, {mimetype: 'audio/mp4', filename: `${anu.title}.mp3`, quoted: mek})
+                break
 				case 'ytmp1':
                 reply(mess.wait)
 					if (args.length < 1) return reply('Urlnya mana um?')
@@ -1027,6 +1040,34 @@ client.on('group-participants-update', async (anu) => {
                    fs.writeFileSync(`./stik/${svst}.webp`, delb)
                     reply('Berhasil menyimpan file!')
                      break
+                     case 'resetsticker':
+					if (!isOwner) return reply(mess.only.ownerB)
+				    gsu = body.slice(13)
+						gsu.splice(gsu)
+						fs.writeFileSync('./stik/${gsu}', JSON.stringify(gsu))
+						reply(`Sukses, database say telah direset`)
+						break
+						case 'getsticker':
+				    namastc = body.slice(12)
+				    try {
+				    buffer = fs.readFileSync(`./stik/${namastc}.webp`)
+				    reply(buffer, sticker, botNumber, cr)
+                } catch (e) {
+			client.sendMessage(from, buffer, sticker, {quoted: mek})
+		}
+		break
+		case 'fitnah1':
+				if (args.length < 1) return reply(`Usage :\n${prefix}fitnah [@tag|pesan|balasanbot]]\n\nEx : \n${prefix}fitnah @tagmember|hai|hai juga`)
+				var gh = body.slice(8)
+				mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
+					var replace = gh.split("|")[0];
+					var target = gh.split("|")[1];
+					var bot = gh.split("|")[2];
+					client.sendMessage(from, `${bot}`, text, {quoted: { key: { fromMe: false, participant: `${mentioned}`, ...(from ? { remoteJid: from } : {}) }, message: { conversation: `${target}` }}})
+					break
+                case 'fakereplay1':
+                   client2.fakeReply("ange mas", "mending lari", "0823-877101916", MessageType.text)
+                   break
 				case 'triggerd':
                                         var imgbb = require('imgbb-uploader')
                                          if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
@@ -1269,6 +1310,31 @@ client.on('group-participants-update', async (anu) => {
 					await client.updateProfilePicture(botNumber, media)
 					reply('Makasih profil barunya😗')
 					break
+				case 'hurufjepang':
+					if (!isUser) return reply(mess.only.userB)
+					costum( ` A =あ    Ka =か
+I =い     Ki =き
+U=う.    Ku =く
+E =え.    Ke =け
+O =お.    Ko =こ。
+
+Sa = さ       Na = な
+Shi = し.     Ni = に
+Su =す.       Nu = ぬ
+Se =せ.       Ne = ね
+So = そ.      No = の
+
+Ma =ま.      Ya = や
+Mi =み.       Yu = ゆ
+Mu =む.      Yo = よ
+Me =め
+Mo =も。   Wa = わ
+                   Wo = を
+Ta= た
+Tsu=つ
+Te=て
+To=と`, text, botNumber, cr)
+					break
 				case 'spamsms':
           reply('Wait..')
                                        if (args[0].startsWith('08')) return reply('Gunakan nomor awalan 8/n ex : *8796662*')
@@ -1392,6 +1458,39 @@ client.on('group-participants-update', async (anu) => {
 						fs.writeFileSync('./src/user.json', JSON.stringify(user))
 						client.sendMessage(from, `\`\`\`Pendaftaran berhasil dengan SN: ${mls}\`\`\`\n\n\`\`\`Pada ${date} ${time}\`\`\`\n\`\`\`[Nama]: ${jeneng}\`\`\`\n\`\`\`[Nomor]: wa.me/${sender.split("@")[0]}\`\`\`\n\`\`\`[Umur]: ${umure}\`\`\`\n\`\`\`Untuk menggunakan bot\`\`\`\n\`\`\`silahkan\`\`\`\n\`\`\`kirim ${prefix}help\`\`\`\n\`\`\`\nTotal Pengguna ${user.length}\`\`\``, text, {quoted: mek})
 					break
+					case 'gambar':
+					const items = ["anime high school dxd", "anime high school dxd hd", "karakter anime high school dxd", "anime high school dxd aesthetic", "wallpaper komputer high school dxd", "wallpaper android high school dxd"];
+					const pepw = items[Math.floor(Math.random() * items.length)]
+					tod = await getBuffer(`https://api.fdci.se/rep.php?gambar=${items}`)
+					client.sendMessage(from, tod, image, { quoted: mek, caption: 'tes'+pepw })
+					break
+				case 'jadwaltvnow':  
+				if (!isUser) return reply(mess.only.daftarB)
+                               reply(mess.wait)
+		               anu = await fetchJson(`http://api-melodicxt.herokuapp.com/api/jadwaltvnow?&apiKey=administrator`, {method: 'get'})
+			       reply(anu.result.jadwalTV)
+					break
+				case 'chatlist1':
+					client.updatePresence(from, Presence.composing)  
+					teks = 'This is list of chat number :\n'
+					for (let all of totalchat) {
+						teks += `~> @${all}\n`
+					}
+					teks += `Total : ${totalchat.length}`
+					client.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": totalchat}})
+					break
+				case 'nulis3': 
+				case 'tulis3':
+					if (args.length < 1) return reply('aku suruh nulis apa kak?')
+                                        if (!isUser) return reply(mess.only.daftarB)
+					teks = body.slice(7)
+					reply(mess.wait)
+					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/nulis?text=halo&apikey=BotWeA`, {method: 'get'})
+					if (anu.error) return reply(anu.error)
+					buff = await getBuffer(anu.result)
+					client.sendMessage(from, buff, image, {quoted: mek, caption: mess.success})
+					break
+				
 				case 'iya':
                  case 'del':
                  case 'delete':
@@ -1715,7 +1814,7 @@ client.on('group-participants-update', async (anu) => {
             case 'owner':
             case 'creator':
                   client.sendMessage(from, {displayname: "Jeff", vcard: vcard}, MessageType.contact, { quoted: mek})
-       client.sendMessage(from, 'Owner RR×018',MessageType.text, { quoted: mek} )
+       client.sendMessage(from, 'Owner RR-018',MessageType.text, { quoted: mek} )
            break    
            case 'setname':
                 if (!isGroup) return reply(mess.only.group)
